@@ -12,11 +12,20 @@ changeResolution = fromRational . toRational
 ave1 :: Size -> Size -> Size
 ave1 a b = a/2 + b/2 
 
+ave1' :: Float -> Float -> Float 
+ave1'  a b = a/2 + b/2 
+
 ave2 :: Size -> Size -> Size
 ave2 a b = a + (b - a) / 2
 
-ave :: Float -> Float -> Float
+ave2' :: Float -> Float -> Float
+ave2' a b = a + (b - a) / 2
+
+ave :: Size -> Size -> Size 
 ave a b = (a + b) / 2
+
+ave' :: Float -> Float -> Float
+ave' a b = (a + b) / 2
 
 comp :: [Size] -> [(Size, Size, Float, Size, Size, Comp)]
 comp []     = []
@@ -33,6 +42,31 @@ comp (x:xs) = (loop x xs) ++ (comp xs)
 
 selector :: Comp -> [Size] -> [(Size, Size, Float, Size, Size, Comp)]
 selector dcp list = (filter (\(a, b, av, av1, av2, cp) -> cp == dcp).comp) list
+
+customPlotPaths scale funcs legend png = plotPathsStyle attribute plotstyle
+ where
+  line     = linearScale 1000 scale
+  w         = map (`fmap` line) funcs
+  z         = map (`zip` line) w
+  ratio     = uncurry (/) scale
+  fontType  = "IPAGothic"
+  tics      = Custom "tics" ["font", "\"" ++ fontType ++ ",8\""] -- 目盛りフォントの変更
+  xlabel    = Custom "xlabel" ["font", "\"" ++ fontType ++ ",8\""] -- xlabelのフォント
+  ylabel    = Custom "ylabel" ["font", "\"" ++ fontType ++ ",8\""] -- ylabelのフォント
+  keyFont   = Custom "ylabel" ["font", "\"" ++ fontType ++ ",8\""] -- 凡例のフォントの変更
+  titleFont = Custom "ylabel" ["font", "\"" ++ fontType ++ ",8\""] -- タイトルのフォント変更
+  key       = [] --凡例の位置等
+  label     = [YLabel "y" , XLabel "x"] -- 軸の見出し
+  save      = [PNG png] -- 出力する形式(PNG)と名前
+  title     = [Title ""] -- グラフのタイトル
+  size      = [Aspect (Ratio ratio)] -- グラフの形 縦/横
+  font      = [tics, xlabel, ylabel, keyFont, titleFont]
+  attribute = save ++ key ++ label ++ title ++ size ++ font
+  plotstyle = [x|i <-[0..(length z-1)],let x = (defaultStyle {lineSpec = CustomStyle [LineTitle (legend!!i),LineWidth 2.0]},z!!i)]
+
+Plots list func = do
+ func
+
 
 main = do
  [a, b]<- getArgs
