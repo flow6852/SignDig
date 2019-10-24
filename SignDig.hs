@@ -1,4 +1,5 @@
 import Data.Fixed
+import Data.List
 import System.IO (hFlush, stdout)
 import System.Environment (getArgs)
 import Graphics.Gnuplot.Simple
@@ -54,7 +55,7 @@ customPlotPaths (a,b) funcs legend rat png = plotPathsStyle attribute plotstyle
   w         = map (`fmap` line) funcs
   z         = map (zip line) w
   ratio     = if rat == "" then 1 else read rat
-  fontType  = "IPAGothic"
+  fontType  = "IPAPGothic"
   tics      = Custom "tics" ["font", "\"" ++ fontType ++ ",8\""] -- 目盛りフォントの変更
   xlabel    = Custom "xlabel" ["font", "\"" ++ fontType ++ ",8\""] -- xlabelのフォント
   ylabel    = Custom "ylabel" ["font", "\"" ++ fontType ++ ",8\""] -- ylabelのフォント
@@ -63,14 +64,14 @@ customPlotPaths (a,b) funcs legend rat png = plotPathsStyle attribute plotstyle
   key       = [] --凡例の位置等
   label     = [YLabel "誤差" , XLabel "b"] -- 軸の見出し
   save      = [PNG png] -- 出力する形式(PNG)と名前
-  title     = [Title ("a = " ++ (show a) ++ "とb (" ++ (show a) ++ "," ++ (show b) ++ ")の平均の相対誤差") ] -- グラフのタイトル
+  title     = [Title ("a = " ++ (show a) ++ "とb(" ++ (show a) ++ "," ++ (show b) ++ ")の平均の相対誤差") ] -- グラフのタイトル
   size      = [Aspect (Ratio ratio)] -- グラフの形 縦/横
   font      = [tics, xlabel, ylabel, keyFont, titleFont]
   attribute = save ++ key ++ label ++ title ++ size ++ font
   plotstyle = [x|i <-[0..(length z-1)],let x = (defaultStyle {lineSpec = CustomStyle [LineTitle (legend!!i),LineWidth 2.0]},z!!i)]
 
 main = do
- [a, b]<- getArgs
+ [a, b]<- sort <$> getArgs
  let list = [(read a :: SizeE3), (read a :: SizeE3) + 0.01 .. (read b :: SizeE3)]
  putStr "print detail? [y/N]"
  hFlush stdout
@@ -84,7 +85,7 @@ main = do
  hFlush stdout
  grt <- getLine
  let dba = read a :: Double
- decidePdfFile gfn >>= customPlotPaths (dba, (read b :: Double)) [func dba{-, func1 dba, func2 dba}-}] ["ave", "ave1", "ave2"] grt
+ decidePdfFile gfn >>= customPlotPaths (dba, (read b :: Double)) [func dba, func1 dba, func2 dba] ["ave", "ave1", "ave2"] grt
   where
    printDetail list = do
     putStrLn "a/2 + b/2"
@@ -92,7 +93,7 @@ main = do
     putStrLn "a + (b-a)/2"
     mapM_ print $ selector Ave2 list
    printResult list = do
-    putStrLn "===== reslut ====="
+    putStrLn "===== result ====="
     putStrLn "(all, equal, a/2 + b/2, a + (b-a)/2)"
     print $ ((length.comp) list, (length.selector Equal) list, (length.selector Ave1) list, (length.selector Ave2) list)
    printOutOfAverage []                              = putStrLn "out of end"
