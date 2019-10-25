@@ -1,0 +1,86 @@
+\documentclass[14pt]{jsarticle}
+\usepackage[top=15truemm,bottom=15truemm,left=15truemm,right=15truemm]{geometry}
+\usepackage[all]{xy}
+\usepackage{amsthm,mathtools,amssymb,graphicx,here, amsmath}
+\pagestyle{plain}
+
+\theoremstyle{definition}
+\newtheorem{dfn}{Def.}[subsection]
+\newtheorem{thm}[dfn]{Thm.}
+\newtheorem{lem}[dfn]{Lem.}
+\newtheorem{cor}[dfn]{Cor.}
+\newtheorem{noti}[dfn]{Notificate.}
+\newtheorem{doril}[dfn]{演習問題}
+
+\begin{document}
+\begin{proof}
+$a ,b\in {\mathbb R}$ とする.
+ある数$r\in {\mathbb R}$について,$n$桁目まで等しい有限小数を$\overline r$とする.
+また,$r = {\overline r} + \varepsilon_r$を満たす$\varepsilon_r$を取る.すると以下の条件を満たす. \\
+$$
+\frac{1}{2}r = \begin{cases}
+	\frac{1}{2}\overline r + \frac{1}{2}\varepsilon_r (rのn桁目が偶数) \\
+	\frac{1}{2}\overline r + 5\times10^{-(n+1)} + \frac{1}{2}\varepsilon_r (rのn桁目が奇数)
+	\end{cases}
+$$
+ここで,$$
+\frac{1}{2}{\overline r} = \begin{cases}
+	{\overline {\frac{1}{2}r}} ({\overline r}のn桁目が偶数) \\
+	{\overline {\frac{1}{2}r}} + 5\times 10^{-(n+1)} ({\overline r}のn桁目が奇数)
+\end{cases}
+$$
+が言える.また,$a, b\in{\mathbb R}$について
+
+\textcircled{\scriptsize 1}$a,b$の$n$桁目が共に偶数のとき\\
+$\overline a, \overline b$の$n$桁目も偶数であるから,
+\begin{eqnarray}
+\left| \frac{1}{2}a + \frac{1}{2}b - \overline{(\frac{1}{2}\overline a + \frac{1}{2}\overline b)} \right| &=&
+\left| \frac{\overline a}{2} + \frac{\varepsilon_a}{2} + \frac{\overline b}{2} + \frac{\varepsilon_b}{2} 
+     - \overline{\frac{\overline a}{2} + \frac{\overline b}{2}} \right| \\ &=& 
+\left| \overline{\frac{\overline a}{2} + \frac{\overline b}{2}}
+     + \frac{\varepsilon_a}{2} + \frac{\varepsilon_b}{2}
+     - \overline{\frac{\overline a}{2} + \frac{\overline b}{2}} \right| \\ &=&
+\left| \frac{\varepsilon_a}{2} +\frac{\varepsilon_b}{2} \right| 
+\end{eqnarray}
+\textcircled{\scriptsize あ}$\varepsilon_a < \varepsilon_b$のとき
+\begin{eqnarray}
+a + \frac{1}{2}(b - a) &=& \overline a + \varepsilon_a + \frac{1}{2}(\overline b + \varepsilon_b - \overline a - \varepsilon_a) \\
+                       &=& \overline a + \varepsilon_a
+                         + \frac{1}{2}(\overline b - \overline a) + \frac{1}{2}\varepsilon_b - \frac{1}{2}\varepsilon_a \\
+		       &=& \overline a + \varepsilon_a
+                         + \frac{1}{2}\overline{(\overline b - \overline a)} 
+                         + \frac{1}{2}\varepsilon_b - \frac{1}{2}\varepsilon_a \\
+                       &=& \overline a 
+                         + \overline{\frac{1}{2}(\overline b - \overline a)} 
+                         + \frac{1}{2}\varepsilon_b + \frac{1}{2}\varepsilon_a \\
+		       &=& \overline{\overline a 
+                         + \overline{\frac{1}{2}(\overline b - \overline a)}}
+                         + \frac{1}{2}\varepsilon_b + \frac{1}{2}\varepsilon_a
+\end{eqnarray}
+だから
+\begin{eqnarray}
+\left| a + \frac{1}{2}(b - a) - (\overline{\overline a + \frac{1}{2}(\overline b - \overline a})) \right| &=&
+\left| \frac{1}{2}\varepsilon_b + \frac{1}{2}\varepsilon_a \right|
+\end{eqnarray}
+が成り立つから,(3),(9)より,数値誤差は等しい.\\
+\textcircled{\scriptsize い}$\varepsilon_a > \varepsilon_b$のとき
+\begin{eqnarray}
+a + \frac{1}{2}(b - a) &=& \overline a + \varepsilon_a 
+                         + \frac{1}{2}(\overline{(b-1.0\times10^{-n})} + 1.0\times10^{-n} + \varepsilon_b - \overline a - \varepsilon_a) \\
+                       &=& \overline a + \varepsilon_a
+                         + \frac{1}{2}(\overline b - \overline a) + \frac{1}{2}\varepsilon_b - \frac{1}{2}\varepsilon_a \\
+		       &=& \overline a + \varepsilon_a
+                         + \frac{1}{2}\overline{(\overline b - \overline a)} 
+                         + \frac{1}{2}\varepsilon_b - \frac{1}{2}\varepsilon_a \\
+                       &=& \overline a 
+                         + \overline{\frac{1}{2}(\overline b - \overline a)} 
+                         + \frac{1}{2}\varepsilon_b + \frac{1}{2}\varepsilon_a \\
+		       &=& \overline{\overline a 
+                         + \overline{\frac{1}{2}(\overline b - \overline a)}}
+                         + \frac{1}{2}\varepsilon_b + \frac{1}{2}\varepsilon_a
+\end{eqnarray}
+\textcircled{\scriptsize 2}
+\textcircled{\scriptsize 3}
+\textcircled{\scriptsize 4}
+\end{proof}
+\end{document}
