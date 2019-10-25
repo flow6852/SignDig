@@ -85,7 +85,7 @@ main = do
  hFlush stdout
  grt <- getLine
  let dba = read a :: Double
- decidePdfFile gfn >>= customPlotPaths (dba, (read b :: Double)) [func dba, func1 dba, func2 dba] ["ave", "ave1", "ave2"] grt
+ decidePdfFile gfn >>= customPlotPaths (dba, (read b :: Double)) [func dba, func1 dba, func2 dba] ["(a+b)/2", "a/2+b/2", "a+(b-a)/2"] grt
   where
    printDetail list = do
     putStrLn "a/2 + b/2"
