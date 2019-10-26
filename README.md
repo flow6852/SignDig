@@ -11,8 +11,8 @@ $ ./SignDig a b
 a/2+b/2とa+(b-a)/2のどちらが美味しいかを調べるプログラムの作成
 ### 2. グラフの作成
 (a+b)/2, a/2+b/2,a+(b-a)/2の相対誤差をaを固定して閉区間[a,b]の間でbを動かしたときのグラフを作成。以下そのサンプル画像
-![]("https://github.com/flow6852/SignDig/blob/master/images/SignDig0-1.png")
-![]("https://github.com/flow6852/SignDig/blob/master/images/SignDig-ave.png")
-![]("https://github.com/flow6852/SignDig/blob/master/images/SignDig-ave1.png")
-![]("https://github.com/flow6852/SignDig/blob/master/images/SignDig-ave2.png")
-![]("https://github.com/flow6852/SignDig/blob/master/images/SignDig-3-0.png")
+![SignDig1]("https://github.com/flow6852/SignDig/blob/master/images/SignDig0-1.png")
+![SignDig2]("https://github.com/flow6852/SignDig/blob/master/images/SignDig-ave.png")
+![SignDig3]("https://github.com/flow6852/SignDig/blob/master/images/SignDig-ave1.png")
+![SignDig4]("https://github.com/flow6852/SignDig/blob/master/images/SignDig-ave2.png")
+![SignDig5]("https://github.com/flow6852/SignDig/blob/master/images/SignDig-3-0.png")
